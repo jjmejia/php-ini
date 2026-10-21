@@ -1,0 +1,117 @@
+[PHP]
+
+; Esta es una versión personalizada del php.ini-production
+; Los parámetros no indicados en este archivo asumen el valor por defecto.
+
+; Previene se muestre la versión de PHP en las headers de respuesta
+expose_php = off
+
+; Modificar la configuración por código para suprimir los ~E_DEPRECATED & ~E_STRICT en producción
+error_reporting = E_ALL
+
+; Para desarrollo, asignar "Off" para producción
+; display_errors = On
+
+; Por defecto es ON
+; html_errors = On
+
+; Asignar un path real en disco para registro del log de errores
+error_log = C:/xxxx/php-error.log
+
+; Este valor debe ser mayor que upload_max_filesize
+post_max_size = 21M
+
+; Debe ser menor que post_max_size
+upload_max_filesize = 20M
+
+; Asignar un path real en disco para recibir archivos por web
+upload_tmp_dir = "C:/xxxx/uploads"
+
+; Asignar un path real en disco para ubicar las extensiones PHP (usualmente donde se instaló PHP)
+extension_dir = "C:\xxxx\ext"
+
+; Path del directorio temporal a usar por PHP para archivos de sistema
+sys_temp_dir = "C:/xxxx/tmpsys"
+
+; Extensiones básicas sugeridas
+extension=curl
+extension=fileinfo
+extension=gettext
+extension=pdo_mysql
+
+; Para habilitar en Apache, requiere adicionar la linea
+; LoadFile "C:/Webserver/php/libssl-3-x64.dll"
+; y (posiblemente) copiar de PHP el archivo libssh2.dll a apache/bin
+extension=openssl
+
+; Extensiones requeridas para DRUPAL y otras apps
+extension=gd
+extension=mbstring
+
+; Extensiones requeridas para CODEIGNITER
+; Para habilitar en Apache copiar icuxxx.dll a apache/bin
+; https://stackoverflow.com/questions/74972810/how-can-i-enable-php-extension-intl-in-an-apache-server
+extension=intl
+
+; Extensiones requeridas para WORDPRESS
+extension=mysqli
+
+; Extensiones requeridas para PosgreSQL
+extension=pdo_pgsql
+extension=pgsql
+
+; Extensiones requeridas para CAKEPHP y otras apps
+extension=pdo_sqlite
+
+; Extensiones requeridas para LARAVEL 11 y posteriores
+; https://stackoverflow.com/questions/61086512/xampp-v3-2-4-enabling-sqlite3-windows-10-64bit
+; libsqlite3.dll isn't installed in the xampp\apache\bin folder. you have to go into xampp\php copy libsqlite3.dll
+; and paste into xampp\apache\bin. easy fix, not sure why it isn't installed there in the first place
+extension=sqlite3
+
+; Extensiones requeridas para manejo de WEBSOCKETS
+; extension=sockets
+
+; Extensiones requeridas para COMPOSER/ARCHIVOS PHAR
+extension=zip
+
+; MODIFICADO YY - DRUPAL / Mejora rendimiento en ejecución de scripts
+; Removida en PHP 8.5
+; zend_extension=opcache
+
+; Extensiones requeridas para XDEBUG
+; https://dev.to/yongdev/how-to-debug-php-using-xdebug-on-vscode-3n4
+; Download https://xdebug.org/download
+; --> php_xdebug-3.3.2-8.3-vs16-x86_64.dll
+; Move the downloaded file to EXT-DIR, and rename it to php_xdebug.dll
+; Update php.ini and add the line:
+; zend_extension = xdebug
+; Make sure that zend_extension = xdebug is below the line for OPcache.
+; Restart the Apache Webserver
+zend_extension = xdebug
+
+[Date]
+
+; Fijar siempre el timezone correcto (por ej. "America/Bogota")
+date.timezone = xxxx
+
+[sqlite3]
+
+; Indicar directorio donde se encuentra la extensión para SQLite3
+; (usualmente en el directorio de extensiones PHP)
+sqlite3.extension_dir = C:/xxxx/ext
+
+[Session]
+
+; Directorio para almacenar los archivos de manejo de sesiones PHP
+session.save_path = "C:/xxxx/sessions"
+
+session.use_strict_mode = 0
+
+
+[opcache]
+
+; Ignora registro de comentarios
+; https://medium.com/accesto/unlocking-faster-execution-with-php-opcode-caching-for-php-performance-72515a1f279a
+opcache.save_comments=0
+
